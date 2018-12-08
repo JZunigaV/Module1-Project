@@ -4,27 +4,12 @@ var frame = document.getElementById("canvas");
 var graphics = frame.getContext('2d');
 
 
+document.addEventListener("mousedown", click);
 
+const FPS = 60;
+var points = 0;
+var scoreTime = 0;
 
-
-//Objeto de jugador
-
-var player = {
-	size: 64,
-	x: 400,
-	y: 250,
-	jumping: false,
-	falling: true,
-	maxJumpSpeed: 0,
-	jumpOriginalValue: 12,
-	jumpSpeed: 12,
-	jumpAcceleration: 0.4,
-	fallSpeed: 0,
-	fallAcceleration: 0.6,
-	alive: false,
-	image: new Image(),
-	light: new Image()
-};
 
 
 //Backgrounds
