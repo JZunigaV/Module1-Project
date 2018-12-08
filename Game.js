@@ -52,7 +52,7 @@ window.onload = function () {
 	}
 
 
-	
+
 	var asset1 = {
 		x: 10,
 		y: 560,
@@ -70,6 +70,15 @@ window.onload = function () {
 		image: new Image()
 	};
 
+	backImage.src = "Graphics/bg.png";
+	backDrop.image.src = "Graphics/backdrop.png";
+	backDrop2.image.src = "Graphics/backdrop.png";
+	backDrop3.image.src = "Graphics/backdrop_ground.png";
+	backDrop4.image.src = "Graphics/backdrop_ground.png";
+	asset1.image.src = "Graphics/asset1.png";
+	asset2.image.src = "Graphics/asset2.png";
+
+
 
 
 	//Motor del juego
@@ -78,13 +87,52 @@ window.onload = function () {
 
 		requestAnimationFrame(update);
 		draw();
+		if (player.alive) {
 
-
+			updatePlayer();
+			updateBackDrop();
+			updateBackDropGround();
+			updateBuilding();
+			checkBottomCollision();
+			checkPlayerCollision();
+			trackTime();
+		}
 
 	}
 
 	function draw() {
 
+
+		graphics.clearRect(0, 0, frame.width, frame.height);
+		graphics.drawImage(backImage, 0, 0, frame.width, frame.height);
+		graphics.drawImage(backDrop.image, backDrop.x, backDrop.y);
+		graphics.drawImage(backDrop2.image, backDrop2.x, backDrop2.y);
+		graphics.drawImage(backDrop3.image, backDrop3.x, backDrop3.y);
+		graphics.drawImage(backDrop4.image, backDrop4.x, backDrop4.y);
+		graphics.drawImage(asset1.image, asset1.x, asset1.y);
+		graphics.drawImage(asset2.image, asset2.x, asset2.y);
+		graphics.drawImage(player.image, player.x, player.y);
+		graphics.font = "bold 20px Helvetica";
+		graphics.fillStyle = "white";
+		graphics.textAlign = "center";
+		graphics.fillText("Score: " + points, frame.width / 2, 100);
+
+		if (!player.alive) {
+
+			graphics.fillText("TryAgain", frame.width / 2, 300);
+
+		}
+	}
+
+	
+
+	function checkBottomCollision() {
+		if (player.y + player.size >= asset1.y) {
+			player.y = asset1.y - player.size;
+			player.falling = false;
+			player.fallSpeed = 0;
+			player.jumpSpeed = player.jumpOriginalValue;
+		}
 	}
 
 
