@@ -30,8 +30,7 @@ window.onload = function () {
 		speed: 0.5,
 		image: new Image()
 	}
-
-
+	
 	var backDrop3 = {
 
 		x: 10,
@@ -42,7 +41,6 @@ window.onload = function () {
 
 	}
 
-
 	var backDrop4 = {
 		x: 500,
 		y: 350,
@@ -50,8 +48,6 @@ window.onload = function () {
 		speed: 1,
 		image: new Image()
 	}
-
-
 
 	var asset1 = {
 		x: 10,
@@ -79,10 +75,7 @@ window.onload = function () {
 	asset2.image.src = "Graphics/asset2.png";
 
 
-
-
 	//Motor del juego
-
 	function update() {
 
 		requestAnimationFrame(update);
@@ -92,7 +85,7 @@ window.onload = function () {
 			updatePlayer();
 			updateBackDrop();
 			updateBackDropGround();
-			updateBuilding();
+			updateAsset();
 			checkBottomCollision();
 			checkPlayerCollision();
 			trackTime();
@@ -134,6 +127,117 @@ window.onload = function () {
 			player.jumpSpeed = player.jumpOriginalValue;
 		}
 	}
+
+	function checkPlayerCollision() {
+		
+		var reduction = 10;
+		reduction = 5;
+
+	}
+
+	function updatePlayer() {
+
+		if (player.jumping) {
+			if (player.jumpSpeed > player.maxJumpSpeed) {
+				player.y -= player.jumpSpeed;
+				player.jumpSpeed -= player.jumpAcceleration;
+			} else {
+				player.jumpSpeed = player.jumpOriginalValue;
+				player.jumping = false;
+				player.falling = true;
+			}
+		} else if (player.falling) {
+			player.y += player.fallSpeed;
+			player.fallSpeed += player.fallAcceleration;
+		}
+	}
+
+
+	function updateAsset() {
+		if (asset1.x + asset1.size < 0) {
+			asset1.x = asset2.x + asset2.size;
+		}
+		if (asset2.x + asset2.size < 0) {
+			asset2.x = asset1.x + asset1.size;
+		}
+		asset1.x -= asset1.speed;
+		asset2.x -= asset2.speed;
+	}
+
+	function updateBackDrop() {
+
+		if (backDrop.x + backDrop.size < 0) {
+			backDrop.x = backDrop2.x + backDrop2.size;
+		}
+		if (backDrop2.x + backDrop2.size < 0) {
+			backDrop2.x = backDrop.x + backDrop.size;
+		}
+
+		backDrop.x -= backDrop.speed;
+		backDrop2.x -= backDrop2.speed;
+
+	}
+
+	function updateBackDropGround() {
+
+		if (backDrop3.x + backDrop3.size < 0) {
+			backDrop3.x = backDrop4.x + backDrop4.size;
+		}
+		if (backDrop4.x + backDrop4.size <= 0) {
+			backDrop4.x = backDrop3.x + backDrop3.size;
+		}
+
+		backDrop3.x -= backDrop3.speed;
+		backDrop4.x -= backDrop4.speed;
+
+	}
+
+	function trackTime() {
+		if (animationTime == 4) {
+
+			managePlayerAnimation();
+			animationTime = 0;
+		}
+		if (scoreTime == 50) {
+			points+= 2;
+			scoreTime = 0;
+		}
+		animationTime++;
+		scoreTime++;
+	}
+
+	function managePlayerAnimation() {
+		if (player.jumping) {
+			player.image = playerAnimation[14];
+
+		} else if (player.falling) {
+			player.image = playerAnimation[0];
+		} else {
+			player.image = playerAnimation[playerFrame];
+			playerFrame++;
+			if (playerFrame > playerAnimation.length - 1) {
+				playerFrame = 0;
+			}
+		}
+	}
+
+	function restartGame() {
+		player.alive = true;
+		points = 0;
+	}
+
+
+	function click() {
+		if (player.alive) {
+			if (!player.jumping && !player.falling) {
+				player.jumping = true;
+			}
+		} else {
+			restartGame();
+
+		}
+	}
+
 
 
 	//Start this shit

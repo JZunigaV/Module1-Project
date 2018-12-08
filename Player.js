@@ -32,7 +32,7 @@ var player = {
     jumpAcceleration: 0.4,
     fallSpeed: 0,
     fallAcceleration: 0.6,
-    alive: false,
+    alive: true,
     image: new Image(),
 
 };
