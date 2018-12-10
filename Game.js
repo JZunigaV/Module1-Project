@@ -15,22 +15,6 @@ window.onload = function () {
 	var startEnemieSpeed = 10
 	var enemieSpeed  = 10;
 
-	// var enemieFrame = 0;
-	// var enemies = [];
-
-
-	// //Animation of enemie
-	// var enemieAnimation = [];
-	// for (var i = 0; i < 5; i++) {
-	// 	enemieAnimation[i] = new Image();
-	// }
-	// enemieAnimation[0].src = "Graphics/dog1.png";
-	// enemieAnimation[1].src = "Graphics/dog2.png";
-	// enemieAnimation[2].src = "Graphics/dog3.png";
-	// enemieAnimation[3].src = "Graphics/dog4.png";
-	// enemieAnimation[4].src = "Graphics/dog5.png";
-
-
 
 	//Backgrounds
 	var backDrop = {
