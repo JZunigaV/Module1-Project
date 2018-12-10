@@ -8,9 +8,27 @@ window.onload = function () {
 
 	var points = 0;
 	var scoreTime = 0;
+	var spawnTime = 0;
 	var animationTime = 0;
 	var playerFrame = 0;
 	var backImage = new Image();
+	var startEnemieSpeed = 10
+	var enemieSpeed  = 10;
+
+	// var enemieFrame = 0;
+	// var enemies = [];
+
+
+	// //Animation of enemie
+	// var enemieAnimation = [];
+	// for (var i = 0; i < 5; i++) {
+	// 	enemieAnimation[i] = new Image();
+	// }
+	// enemieAnimation[0].src = "Graphics/dog1.png";
+	// enemieAnimation[1].src = "Graphics/dog2.png";
+	// enemieAnimation[2].src = "Graphics/dog3.png";
+	// enemieAnimation[3].src = "Graphics/dog4.png";
+	// enemieAnimation[4].src = "Graphics/dog5.png";
 
 
 
@@ -30,7 +48,7 @@ window.onload = function () {
 		speed: 0.5,
 		image: new Image()
 	}
-	
+
 	var backDrop3 = {
 
 		x: 10,
@@ -66,6 +84,7 @@ window.onload = function () {
 		image: new Image()
 	};
 
+
 	backImage.src = "Graphics/bg.png";
 	backDrop.image.src = "Graphics/backdrop.png";
 	backDrop2.image.src = "Graphics/backdrop.png";
@@ -86,6 +105,8 @@ window.onload = function () {
 			updateBackDrop();
 			updateBackDropGround();
 			updateAsset();
+			//update of enemie
+			updateEnemies();
 			checkBottomCollision();
 			checkPlayerCollision();
 			trackTime();
@@ -109,15 +130,36 @@ window.onload = function () {
 		graphics.fillStyle = "white";
 		graphics.textAlign = "center";
 		graphics.fillText("Score: " + points, frame.width / 2, 100);
+		drawEnemies();
 
 		if (!player.alive) {
 
+
+			
+			player.image = playerAnimation[11];
+			
+			player.image = playerAnimation[12];
+			
+			player.image = playerAnimation[13];
+			
+			player.image = playerAnimation[14];
+			
+			player.image = playerAnimation[15];
+
+			
 			graphics.fillText("TryAgain", frame.width / 2, 300);
 
 		}
 	}
 
-	
+	//Draw enemies
+	function drawEnemies() {
+		for (i = 0; i < enemies.length; i++) {
+			graphics.drawImage(enemies[i].image, enemies[i].x, enemies[i].y);
+		}
+	}
+
+
 
 	function checkBottomCollision() {
 		if (player.y + player.size >= asset1.y) {
@@ -129,9 +171,17 @@ window.onload = function () {
 	}
 
 	function checkPlayerCollision() {
-		
+
 		var reduction = 10;
-		reduction = 5;
+		for (i = 0; i < enemies.length; i++) {
+			var testDog = enemies[i];
+			if (testDog.x + reduction < player.x + player.size - reduction &&
+				testDog.x + testDog.size - reduction > player.x + reduction &&
+				testDog.y + reduction < player.y + player.size - reduction &&
+				testDog.y + testDog.size - reduction > player.y + reduction) {
+				player.alive = false;
+			}
+		}
 
 	}
 
@@ -192,21 +242,63 @@ window.onload = function () {
 
 	}
 
+
+	//update of enemies
+
+	function updateEnemies() {
+		if (spawnTime == 100) {
+			generatePacksOfEnemies(frame,enemieSpeed);
+			spawnTime = 0;
+		}
+		spawnTime++;
+		for (i = 0; i < enemies.length; i++) {
+			if (enemies[i].x + enemies[i].size < 0) {
+				enemies.splice(i, 0);
+			}
+			enemies[i].x -= enemies[i].speed;
+		}
+	}
+
+
+	
+
 	function trackTime() {
 		if (animationTime == 4) {
-
 			managePlayerAnimation();
+			manageEnemieAnimation();
 			animationTime = 0;
 		}
 		if (scoreTime == 50) {
-			points+= 2;
+			points += 2;
 			scoreTime = 0;
 		}
 		animationTime++;
+
+
+		if(points === 20){
+			enemieSpeed = 15;
+		}
+		
+
+		if(points === 40){
+			enemieSpeed = 20;
+		}
+
+		if(points === 60){
+			enemieSpeed = 25;
+		}
+
+
+		
+
+
 		scoreTime++;
 	}
 
 	function managePlayerAnimation() {
+
+	
+
 		if (player.jumping) {
 			player.image = playerAnimation[14];
 
@@ -221,9 +313,22 @@ window.onload = function () {
 		}
 	}
 
+	//Manage Dog animation
+	function manageEnemieAnimation() {
+		for (i = 0; i < enemies.length; i++) {
+			enemies[i].image = enemieAnimation[enemieFrame];
+		}
+		enemieFrame++;
+		if (enemieFrame > enemieAnimation.length - 1) {
+			enemieFrame = 0;
+		}
+	}
+
 	function restartGame() {
+
 		player.alive = true;
 		points = 0;
+		enemies = [];
 	}
 
 
@@ -234,7 +339,38 @@ window.onload = function () {
 			}
 		} else {
 			restartGame();
+			firstDog = true;
+			enemieSpeed = startEnemieSpeed;
+		}
+	}
 
+
+
+	
+    //Generate packs of enemies
+
+	function generatePacksOfEnemies() {
+		var numEnemies = Math.floor(Math.random() * 5);
+		switch (numEnemies) {
+			case 0:
+				enemies.push(new Enemie(frame.width));
+				break;
+			case 1:
+				enemies.push(new Enemie(frame.width));
+				enemies.push(new Enemie(frame.width + 70));
+				break;
+			case 2:
+				enemies.push(new Enemie(frame.width));
+				enemies.push(new Enemie(frame.width + 70));
+				enemies.push(new Enemie(frame.width + 140));
+				break;
+
+			case 3:
+				enemies.push(new Enemie(frame.width));
+				enemies.push(new Enemie(frame.width + 70));
+				enemies.push(new Enemie(frame.width + 140));
+				enemies.push(new Enemie(frame.width + 210));
+				break;
 		}
 	}
 
