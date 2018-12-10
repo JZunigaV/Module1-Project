@@ -21,15 +21,15 @@ playerAnimation[14].src = "Graphics/Player_Walk/15.png";
 playerAnimation[15].src = "Graphics/Player_Walk/16.png";
 
 var player = {
-    
+
     size: 93,
     x: 200,
     y: 250,
     jumping: false,
     falling: true,
     maxJumpSpeed: 0,
-    jumpOriginalValue: 9,
-    jumpSpeed: 1,
+    jumpOriginalValue: 10.5,
+    jumpSpeed: 6,
     jumpAcceleration: 0.4,
     fallSpeed: 0,
     fallAcceleration: 0.6,

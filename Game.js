@@ -369,7 +369,7 @@ window.onload = function () {
 				enemies.push(new Enemie(frame.width));
 				enemies.push(new Enemie(frame.width + 70));
 				enemies.push(new Enemie(frame.width + 140));
-				enemies.push(new Enemie(frame.width + 210));
+				enemies.push(new Enemie(frame.width + 190));
 				break;
 		}
 	}

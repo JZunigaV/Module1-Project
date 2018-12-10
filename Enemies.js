@@ -6,7 +6,7 @@ var enemieFrame = 0;
 	function Enemie(x) {
 		this.x = x;
 		this.y = 475;
-		this.size = 135;
+		this.size = 130;
 		this.speed = 11;
 		this.image = new Image();
 	}
