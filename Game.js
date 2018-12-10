@@ -97,7 +97,9 @@ window.onload = function () {
 	//Motor del juego
 	function update() {
 
+	
 		requestAnimationFrame(update);
+
 		draw();
 		if (player.alive) {
 
@@ -376,7 +378,16 @@ window.onload = function () {
 
 
 
+
+	// document.getElementById ("lol").addEventListener ("click", myFunction, false);
+
+	// function myFunction() {
+	// 	var lol = new Audio("music.mp3");
+	// 	lol.play();
+	// }
+
 	//Start this shit
+	
 	update();
 
 
