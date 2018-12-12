@@ -113,7 +113,7 @@ window.onload = function () {
 		graphics.textAlign = "center";
 		graphics.fillText("Score: " + points, frame.width / 2, 100);
 		drawEnemies();
-		
+
 		if (!player.alive) {
 			graphics.fillText("TryAgain", frame.width / 2, 300);
 		}
@@ -189,8 +189,8 @@ window.onload = function () {
 			graphics.drawImage(enemies[i].image, enemies[i].x, enemies[i].y);
 		}
 	}
-	//update of enemies
 
+	//update of enemies
 	function updateEnemies() {
 		if (spawnTime == 100) {
 			generatePacksOfEnemies(frame, enemieSpeed);
@@ -208,7 +208,8 @@ window.onload = function () {
 	//Generate packs of enemies
 
 	function generatePacksOfEnemies() {
-		var numEnemies = Math.floor(Math.random() * 5);
+		var numEnemies = Math.floor(Math.random() * 6);
+		console.log(numEnemies);
 		switch (numEnemies) {
 			case 0:
 				enemies.push(new Enemie(frame.width));
@@ -226,8 +227,29 @@ window.onload = function () {
 				enemies.push(new Enemie(frame.width));
 				enemies.push(new Enemie(frame.width + 70));
 				enemies.push(new Enemie(frame.width + 140));
-				enemies.push(new Enemie(frame.width + 190));
+				enemies.push(new Enemie(frame.width + 210));
 				break;
+
+			case 4:
+
+				enemies.push(new Enemie(frame.width));
+				enemies.push(new Enemie(frame.width + 70));
+				enemies.push(new Enemie(frame.width + 140));
+				enemies.push(new Enemie(frame.width + 210));
+				enemies.push(new Enemie(frame.width + 280));
+				break;
+
+			case 5:
+
+				enemies.push(new Enemie(frame.width));
+				enemies.push(new Enemie(frame.width + 70));
+				enemies.push(new Enemie(frame.width + 140));
+				enemies.push(new Enemie(frame.width + 210));
+				enemies.push(new Enemie(frame.width + 280));
+				enemies.push(new Enemie(frame.width + 350));
+				break;
+
+
 		}
 	}
 
@@ -243,7 +265,7 @@ window.onload = function () {
 
 	function checkPlayerCollision() {
 
-		var reduction = 10;
+		var reduction = 30;
 		for (i = 0; i < enemies.length; i++) {
 			var testDog = enemies[i];
 			if (testDog.x + reduction < player.x + player.size - reduction &&
@@ -308,7 +330,7 @@ window.onload = function () {
 
 		//Aqui controlaremos la difcultad
 		if (points === 20) {
-			
+
 			enemieSpeed = 15;
 		}
 
@@ -319,7 +341,6 @@ window.onload = function () {
 		if (points === 60) {
 			enemieSpeed = 25;
 		}
-		
 		scoreTime++;
 	}
 
