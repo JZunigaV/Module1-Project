@@ -16,9 +16,6 @@ window.onload = function () {
 	var startEnemieSpeed = 10
 	var enemieSpeed = 10;
 
-	//Audio
-
-
 
 	//HighScore
 	var highScore = 0;
@@ -383,7 +380,7 @@ window.onload = function () {
 		}
 		return isHighScore;
 	}
-	
+
 	function startGame() {
 		//Start this shit
 		update();
