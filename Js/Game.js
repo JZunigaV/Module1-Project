@@ -3,7 +3,7 @@ window.onload = function () {
 	//El buen canvas
 	var frame = document.getElementById("canvas");
 	var graphics = frame.getContext('2d');
-	document.addEventListener("keydown", function(e){
+	document.addEventListener("keydown", function (e) {
 		click(e);
 	});
 
@@ -15,6 +15,10 @@ window.onload = function () {
 	var backImage = new Image();
 	var startEnemieSpeed = 10
 	var enemieSpeed = 10;
+
+	//Audio
+
+
 
 	//HighScore
 	var highScore = 0;
@@ -86,6 +90,11 @@ window.onload = function () {
 	function update() {
 
 		requestAnimationFrame(update);
+
+		//Music start
+		document.getElementById('song').play();
+		document.getElementById('song').muted = false;
+
 		draw();
 		if (player.alive) {
 			updatePlayer();
@@ -123,16 +132,16 @@ window.onload = function () {
 		graphics.fillStyle = "white";
 		graphics.textAlign = "center";
 		graphics.fillText("Score: " + points, frame.width / 2, 100);
-		
+
 		//Pintamos el HighScore
 		graphics.fillText("Best Score: " + highScore, 100, 100);
 		if (!player.alive) {
-			graphics.fillText("Press 'r' to restart" , frame.width / 2, 300);	
-			
+			graphics.fillText("Press 'r' to restart", frame.width / 2, 300);
+
 			//Aqui escribimos el mensaje de new Record
 			if (points > highScore) {
-				graphics.fillText("You made a new Record!!!", frame.width / 2, 400);			
-			}		
+				graphics.fillText("You made a new Record!!!", frame.width / 2, 400);
+			}
 		}
 	}
 
@@ -142,10 +151,11 @@ window.onload = function () {
 	function click(e) {
 
 		if (player.alive && e.keyCode === 32) {
+
 			if (!player.jumping && !player.falling) {
 				player.jumping = true;
 			}
-		} else if(!player.alive && e.keyCode === 82 ) {
+		} else if (!player.alive && e.keyCode === 82) {
 			restartGame();
 			enemieSpeed = startEnemieSpeed;
 		}
@@ -220,6 +230,7 @@ window.onload = function () {
 	}
 
 	//Generate packs of enemies
+
 	function generatePacksOfEnemies() {
 		var numEnemies = Math.floor(Math.random() * 6);
 		switch (numEnemies) {
@@ -357,22 +368,26 @@ window.onload = function () {
 	}
 
 	function restartGame() {
-	    checkScore();
+		checkScore();
 		player.alive = true;
 		points = 0;
 		enemies = [];
 	}
 
 	function checkScore() {
-	
+
 		isHighScore = false
-		if (points > highScore) {			
+		if (points > highScore) {
 			highScore = points;
 			isHighScore = true;
 		}
 		return isHighScore;
 	}
+	
+	function startGame() {
+		//Start this shit
+		update();
+	}
 
-	//Start this shit
-	update();
+	startGame();
 };
