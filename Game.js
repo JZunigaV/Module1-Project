@@ -3,7 +3,9 @@ window.onload = function () {
 	//El buen canvas
 	var frame = document.getElementById("canvas");
 	var graphics = frame.getContext('2d');
-	document.addEventListener("mousedown", click);
+	document.addEventListener("keydown", function(e){
+		click(e);
+	});
 
 	var points = 0;
 	var scoreTime = 0;
@@ -13,6 +15,9 @@ window.onload = function () {
 	var backImage = new Image();
 	var startEnemieSpeed = 10
 	var enemieSpeed = 10;
+
+	//HighScore
+	var highScore = 0;
 
 	//Backgrounds
 	var backDrop = {
@@ -101,6 +106,7 @@ window.onload = function () {
 
 	function draw() {
 
+		//Elementos de juego
 		graphics.clearRect(0, 0, frame.width, frame.height);
 		graphics.drawImage(backImage, 0, 0, frame.width, frame.height);
 		graphics.drawImage(backDrop.image, backDrop.x, backDrop.y);
@@ -110,31 +116,37 @@ window.onload = function () {
 		graphics.drawImage(asset1.image, asset1.x, asset1.y);
 		graphics.drawImage(asset2.image, asset2.x, asset2.y);
 		graphics.drawImage(player.image, player.x, player.y);
-		graphics.font = "bold 20px Helvetica";
+		drawEnemies();
+
+		//Texto que aparecerá en Canvas
+		graphics.font = "bold 20px Freckle Face";
 		graphics.fillStyle = "white";
 		graphics.textAlign = "center";
 		graphics.fillText("Score: " + points, frame.width / 2, 100);
-		drawEnemies();
-
+		
+		//Pintamos el HighScore
+		graphics.fillText("Best Score: " + highScore, 100, 100);
 		if (!player.alive) {
-			graphics.fillText("TryAgain", frame.width / 2, 300);
+			graphics.fillText("Press 'r' to restart" , frame.width / 2, 300);	
+			
+			//Aqui escribimos el mensaje de new Record
+			if (points > highScore) {
+				graphics.fillText("You made a new Record!!!", frame.width / 2, 400);			
+			}		
 		}
 	}
 
 
-	//Funciones para Controlar el comportamiento de player
+	//Funciones para Controlar el comportamiento de players
+	//Función del listener tambien checamos si el el jugador murió 
+	function click(e) {
 
-
-	//Función del listener
-	
-	function click() {
-		if (player.alive) {
+		if (player.alive && e.keyCode === 32) {
 			if (!player.jumping && !player.falling) {
 				player.jumping = true;
 			}
-		} else {
+		} else if(!player.alive && e.keyCode === 82 ) {
 			restartGame();
-			firstDog = true;
 			enemieSpeed = startEnemieSpeed;
 		}
 	}
@@ -174,8 +186,6 @@ window.onload = function () {
 	}
 
 	//Funciones para controlar el comportamiento de los enemigos
-
-
 	//Manage  animation
 	function manageEnemieAnimation() {
 		for (i = 0; i < enemies.length; i++) {
@@ -210,10 +220,8 @@ window.onload = function () {
 	}
 
 	//Generate packs of enemies
-
 	function generatePacksOfEnemies() {
 		var numEnemies = Math.floor(Math.random() * 6);
-		console.log(numEnemies);
 		switch (numEnemies) {
 			case 0:
 				enemies.push(new Enemie(frame.width));
@@ -266,7 +274,6 @@ window.onload = function () {
 	}
 
 	function checkPlayerCollision() {
-
 		var reduction = 30;
 		for (i = 0; i < enemies.length; i++) {
 			var testDog = enemies[i];
@@ -350,9 +357,20 @@ window.onload = function () {
 	}
 
 	function restartGame() {
+	    checkScore();
 		player.alive = true;
 		points = 0;
 		enemies = [];
+	}
+
+	function checkScore() {
+	
+		isHighScore = false
+		if (points > highScore) {			
+			highScore = points;
+			isHighScore = true;
+		}
+		return isHighScore;
 	}
 
 	//Start this shit
