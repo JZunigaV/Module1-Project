@@ -29,4 +29,3 @@ enemieAnimation[7].src = "Graphics/esqueleto/8.png"
 enemieAnimation[8].src = "Graphics/esqueleto/9.png"
 enemieAnimation[9].src = "Graphics/esqueleto/10.png"
 enemieAnimation[10].src = "Graphics/esqueleto/11.png"
-

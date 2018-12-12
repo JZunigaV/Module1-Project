@@ -92,6 +92,8 @@ window.onload = function () {
 			updateEnemies();
 			checkBottomCollision();
 			checkPlayerCollision();
+
+			//Se encarga de que los frames de cada Sprite se actualicen correctamente
 			trackTime();
 		}
 
@@ -123,6 +125,8 @@ window.onload = function () {
 	//Funciones para Controlar el comportamiento de player
 
 
+	//Función del listener
+	
 	function click() {
 		if (player.alive) {
 			if (!player.jumping && !player.falling) {
@@ -248,8 +252,6 @@ window.onload = function () {
 				enemies.push(new Enemie(frame.width + 280));
 				enemies.push(new Enemie(frame.width + 350));
 				break;
-
-
 		}
 	}
 
@@ -277,6 +279,7 @@ window.onload = function () {
 		}
 	}
 
+	//Movimiento del piso
 	function updateAsset() {
 		if (asset1.x + asset1.size < 0) {
 			asset1.x = asset2.x + asset2.size;
@@ -288,6 +291,7 @@ window.onload = function () {
 		asset2.x -= asset2.speed;
 	}
 
+	//Movimiento de la primer capa de background
 	function updateBackDrop() {
 
 		if (backDrop.x + backDrop.size < 0) {
@@ -302,6 +306,7 @@ window.onload = function () {
 
 	}
 
+	//Movimiento de la segunda capa de background
 	function updateBackDropGround() {
 
 		if (backDrop3.x + backDrop3.size < 0) {
@@ -328,7 +333,7 @@ window.onload = function () {
 		}
 		animationTime++;
 
-		//Aqui controlaremos la difcultad
+		//Aqui controlaremos la dificultad
 		if (points === 20) {
 
 			enemieSpeed = 15;
