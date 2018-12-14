@@ -1,43 +1,24 @@
-.c-body {
-  color: #fff;
-  background: #2c3e50;
+
+@font-face{
+	font-family: 'Freckle Face', cursive;
+	src:url('https://fonts.googleapis.com/css?family=Freckle+Face');
 }
-.button--start {
-  top: 150px;
+
+canvas{
+
+
+	margin: auto;
+	position:absolute;
+	top:0;
+    bottom:0;
+    border: black solid;
+	right:0;
+    left:0;
+    
 }
-.button--scores {
-  top: 250px;
-}
-.button--about {
-  top: 350px;
-}
-.title {
-  margin: 30px auto;
-  text-align: center;
-  text-shadow: #33f 0 0 20px;
-}
-.button {
-  list-style: none;
-  width: 250px;
-  height: 48px;
-  line-height: 48px;
-  text-align: center;
-  position: absolute;
-  left: calc(50% - 125px);
-  border: 1px solid #b71c1c;
-  background-color: #f44336;
-  font-size: 24px;
-  text-shadow: #333 2px 2px 2px;
-  cursor: pointer;
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
-  outline: 2px solid;
-  outline-color: rgba(255, 255, 255, .6);
-  transition: outline 2s, box-shadow 2s, text-shadow 2s cubic-bezier(0.19, 1, 0.22, 1);
-}
-.button:hover {
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, 1);
-  outline-color: rgba(255, 255, 255, 0);
-  outline-offset: 25px;
-  text-shadow: #427388 1px 1px 2px;
-  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-}
+
+body{
+
+	background: black;
+	
+	}
