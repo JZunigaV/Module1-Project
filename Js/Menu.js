@@ -55,6 +55,10 @@ timerId = setInterval(update, 1000 / frames);
 
 
 function update() {
+
+    	//Music start
+		document.getElementById('menu-music').play();
+		document.getElementById('menu-music').muted = false;
     clear();
     move();
     draw();
@@ -109,6 +113,8 @@ canvas.addEventListener("mousemove", checkPos);
 
 
 function checkPos(mouseEvent) {
+
+    
 
     if (mouseEvent.pageX || mouseEvent.pageY == 0) {
         mouseX = mouseEvent.pageX - this.offsetLeft;
